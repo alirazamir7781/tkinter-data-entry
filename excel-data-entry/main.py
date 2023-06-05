@@ -28,7 +28,7 @@ def enter_data():
             print("Registration status", registration_status)
             print("------------------------------------------")
             
-            filepath = "D:\codefirst.io\Tkinter Data Entry\data.xlsx"
+            filepath = "E:\data.xlsx"
             
             if not os.path.exists(filepath):
                 workbook = openpyxl.Workbook()
