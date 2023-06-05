@@ -53,6 +53,25 @@ def enter_data():
     else:
         tkinter.messagebox.showwarning(title= "Error", message="You have not accepted the terms")
 
+def View_data():
+    try:
+        # Connect to the SQLite database
+        conn = sqlite3.connect('data.db')
+        cursor = conn.cursor()
+
+        # Execute a SELECT query
+        cursor.execute('SELECT * FROM Student_Data')
+        rows = cursor.fetchall()
+
+        # Display the retrieved data using Tkinter messagebox
+        messagebox.showinfo('Data from Database', '\n'.join(map(str, rows)))
+
+        # Close the database connection
+        conn.close()
+    except sqlite3.Error as e:
+        messagebox.showerror('Database Error', str(e))
+
+
 window = tkinter.Tk()
 window.title("Data Entry Form")
 
@@ -129,5 +148,7 @@ terms_check.grid(row=0, column=0)
 # Button
 button = tkinter.Button(frame, text="Enter data", command= enter_data)
 button.grid(row=3, column=0, sticky="news", padx=20, pady=10)
+button = tkinter.Button(frame, text="View data", command= View_data)
+button.grid(row=4, column=0, sticky="news", padx=20, pady=10)
  
 window.mainloop()
