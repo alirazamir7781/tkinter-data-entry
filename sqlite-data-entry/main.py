@@ -148,7 +148,6 @@ def openwindow():
     age_spinbox = tkinter.Spinbox(user_info_frame, from_=18, to=110)
     age_label.grid(row=2, column=0)
     age_spinbox.grid(row=3, column=0)
-    print(age_spinbox.get())
     nationality_label = tkinter.Label(user_info_frame, text="Nationality")
     nationality_combobox = ttk.Combobox(user_info_frame, values=["Africa", "Antarctica", "Asia", "Europe", "North America", "Oceania", "South America"])
     nationality_label.grid(row=2, column=1)
