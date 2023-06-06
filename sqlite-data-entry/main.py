@@ -60,21 +60,29 @@ def View_data():
         cursor = conn.cursor()
 
         # Execute a SELECT query
-        cursor.execute('SELECT * FROM Student_Data')
+        cursor.execute('SELECT firstname, lastname, title, age, nationality, registration_status, num_courses, num_semesters FROM Student_Data')
         rows = cursor.fetchall()
-
+        columnname=["firstname", "lastname", "title", "age", "nationality", "registration_status", "num_courses", "num_semesters"]
         # Display the retrieved data using Tkinter messagebox
         # messagebox.showinfo('Data from Database', '\n'.join(map(str, rows)))
         window = tkinter.Tk()
         window.title("Data View Form")
+        for row_index, row in enumerate(rows):
+            for col_index, value in enumerate(row):
+                label = tkinter.Label(window, text=f" {columnname[col_index]}")
+                label.grid(row=row_index, column=2*col_index)
+
+                entry = tkinter.Entry(window)
+                entry.insert(tkinter.END, str(value))
+                entry.grid(row=row_index, column=2*col_index+1)
 
         # Create a Tkinter Text widget to display the data
-        text_widget = tkinter.Text(window)
-        text_widget.pack()
+        #text_widget = tkinter.Text(window)
+        #text_widget.pack()
 
         # Insert the retrieved data into the Text widget
-        for row in rows:
-            text_widget.insert(tkinter.END, str(row) + '\n')
+        #for row in rows:
+         #   text_widget.insert(tkinter.END, str(row) + '\n')
 
         # Run the Tkinter event loop
         window.mainloop()
