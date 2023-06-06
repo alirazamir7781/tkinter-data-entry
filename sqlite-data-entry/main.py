@@ -64,8 +64,20 @@ def View_data():
         rows = cursor.fetchall()
 
         # Display the retrieved data using Tkinter messagebox
-        messagebox.showinfo('Data from Database', '\n'.join(map(str, rows)))
+        # messagebox.showinfo('Data from Database', '\n'.join(map(str, rows)))
+        window = tkinter.Tk()
+        window.title("Data View Form")
 
+        # Create a Tkinter Text widget to display the data
+        text_widget = tkinter.Text(window)
+        text_widget.pack()
+
+        # Insert the retrieved data into the Text widget
+        for row in rows:
+            text_widget.insert(tkinter.END, str(row) + '\n')
+
+        # Run the Tkinter event loop
+        window.mainloop()
         # Close the database connection
         conn.close()
     except sqlite3.Error as e:
