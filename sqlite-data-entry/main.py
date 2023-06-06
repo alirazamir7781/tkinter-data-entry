@@ -2,6 +2,8 @@ import tkinter
 from tkinter import ttk
 from tkinter import messagebox
 import sqlite3
+import array as arr
+import numpy as np
 
 def enter_data():
     accepted = accept_var.get()
@@ -55,16 +57,21 @@ def enter_data():
 
 def View_data():
     try:
+       
         # Connect to the SQLite database
         conn = sqlite3.connect('data.db')
         cursor = conn.cursor()
-
+        cursor.execute(f"PRAGMA table_info(Student_Data)")
+        columns=cursor.fetchall()
+        columnname = np.array([column[1] for column in columns])
+        #print (columnname)
         # Execute a SELECT query
         cursor.execute('SELECT firstname, lastname, title, age, nationality, registration_status, num_courses, num_semesters FROM Student_Data')
         rows = cursor.fetchall()
-        columnname=["firstname", "lastname", "title", "age", "nationality", "registration_status", "num_courses", "num_semesters"]
+        #columnname=["firstname", "lastname", "title", "age", "nationality", "registration_status", "num_courses", "num_semesters"]
         # Display the retrieved data using Tkinter messagebox
         # messagebox.showinfo('Data from Database', '\n'.join(map(str, rows)))
+        
         window = tkinter.Tk()
         window.title("Data View Form")
         for row_index, row in enumerate(rows):
